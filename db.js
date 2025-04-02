@@ -16,9 +16,7 @@ const dbPassword = process.env.DB_PASS;
 async function main() {
     // await para esperar a conexão em torno de 15 segundos
     await mongoose.connect(
-        `mongodb+srv://${dbUser}:${dbPassword}
-        @cluster0.pqyc5.mongodb.net/?retryWrites=true&w=majority&appName=
-        Cluster0`
+        `mongodb+srv://${dbUser}:${dbPassword}@cluster0.pqyc5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
     );
 
     // Exibe a mensagem ao úsuário que realizou a conexão

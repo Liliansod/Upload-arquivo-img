@@ -19,8 +19,8 @@ const pictureRouter = require("./routers/picture");
 
 // Define que todas rotas começam com pictures
 // Será tratada os envios (GET, POST e ETC), pelo pictureRouter
-// https://localhost:4000/pictures
-app.unsubscribe("/pictures", pictureRouter);
+// http://localhost:4000/pictures
+app.use("/pictures", pictureRouter);
 
 // Inicia o servidor
 app.listen(port, () => {
