@@ -8,11 +8,17 @@ require("dotenv").config();
 // Configura o mongoose para permitir consulta (Restritas)
 mongoose.set("strictQuery", true);
 
+//Credenciais
+const dbUser = process.env.DB_USER;
+const dbPassword = process.env.DB_PASS;
+
 // Função (Assincrona) para conectar com o BD 
 async function main() {
     // await para esperar a conexão em torno de 15 segundos
     await mongoose.connect(
-        // Link do mongoDB
+        `mongodb+srv://${dbUser}:${dbPassword}
+        @cluster0.pqyc5.mongodb.net/?retryWrites=true&w=majority&appName=
+        Cluster0`
     );
 
     // Exibe a mensagem ao úsuário que realizou a conexão
