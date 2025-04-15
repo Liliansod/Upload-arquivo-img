@@ -1,6 +1,7 @@
 // Importa o modelo Picture que é a interação do banco de dados
 const Picture = require("../models/Picture");
 
+
 // Função para criar uma nova imagem no banco de dados
 exports.create = async (req, res) => {
   try {
@@ -28,16 +29,17 @@ exports.create = async (req, res) => {
   }
 };
 
-// Função para buscar todas as img no DB
+// Função para encontrar todas as imagens no banco de dados
 exports.findAll = async (req, res) => {
   try {
-    // Busca todas img armazenadas no DB
+    // Busca todas as imagens no banco de dados
     const pictures = await Picture.find();
-    // Retorno todas img encontradas em formato de JSON
-    res.json(pictures);
+
+    // Retorna todas as imagens do DB
+    res.json({ pictures, msg: "Imagens buscadas com sucesso!" });
   } catch (err) {
-    // Caso haja erro durante a busca, retorna mensagem ao usuário
-    res.status(500).json({ message: "Erro ao buscar as imagens." });
+    // Em caso de erro, retorna uma resposta de erro com código 500
+    res.status(500).json({ message: "Erro ao buscar imagens!" });
   }
 };
 
@@ -52,7 +54,7 @@ exports.getImage = async (req, res) => {
       return res.status(404).json({ message: "Imagem não encontrada!" });
     }
 
-    // Define a resposta para o tipo de imagem
+    // Define a resposta para o tipo da imagem
     res.set("Content-Type", picture.contentType);
 
     // Mostra a imagem na resposta
