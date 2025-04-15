@@ -1,11 +1,10 @@
 // Importando para uploads de arquivos
 const multer = require("multer");
 
-// Importa o path para manipulação de caminhos de arquivos (Windows)
-const path = require("path");
+const storage = multer.memoryStorage();
 
 // Configura o Multer
-const storage = multer.diskStorage({
+const upload = multer({
   storage,
   limits: {
     fileSize: 5 * 1024 * 1024 // Limite de 5MB
