@@ -87,11 +87,19 @@ function createPhotoCardElement(photo) {
               onerror="this.onerror=null; this.src='${config.placeholderImage}'">
          <div class="photo-info">
              <div class="photo-name">${photo.name}</div>
+              <button class="btn-delete" data-id="${photo._id}">Excluir</button>
          </div>
          `;
 
+  // Adiciona evento de click no botão excluir
+  const deleteButton = card.querySelector('.btn-delete');
+  deleteButton.addEventListener('click', () => deletePhoto(photo._id));
   return card;
 }
+
+
+
+
 
 // Envia nova foto para o servidor (Recebe FormDAta com nome e arquivo)
 async function uploadNewPhoto(formData) {
@@ -177,3 +185,35 @@ document.addEventListener("DOMContentLoaded", () => {
   setupEventListeners(); // Configura todos os event
   loadAndDisplayPhotos(); // Carrega e exibe as fotos iniciais
 });
+
+// Função para excluir uma foto pelo ID
+async function deletePhoto(photoId) {
+  try {
+    // Confirma com o usuário antes de excluir
+    if (!confirm("Tem certeza que deseja excluir esta foto?")) {
+      return; // Se cancelar, não prossegue
+    }
+
+    // Faz requisição DELETE para API
+    const response = await fetch(`${config.apiUrl}/${photoId}`, {
+      method: "DELETE",
+    });
+
+    // Verifica se a resposta foi bem sucedida
+    if (!response.ok) {
+      throw new Error(`Erro ao excluir: status ${response.status}`);
+    }
+
+    // Notificação de sucesso para o usuário
+    showNotification("Foto excluída com sucesso!");
+    
+    // Recarrega a lista de fotos (Após exclusão)
+    loadAndDisplayPhotos();
+  } catch (error) {
+    // Mostrar erro no console
+    console.error("Erro ao excluir foto:", error);
+    // Notificação de falha para o usuário
+    showNotification("Falha ao excluir foto", "error");
+  }
+}
+

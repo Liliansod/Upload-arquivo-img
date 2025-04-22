@@ -21,3 +21,6 @@ router.get("/:id/image", PictureController.getImage);
 
 // Exportando para utilizar em outro arquivo
 module.exports = router;
+
+// Rota para excluir uma imagem pelo ID
+router.delete("/:id", PictureController.deleteImage);
